@@ -11,6 +11,11 @@ class Solitario {
 	public final static byte SOGLIA_DIFF_MIN_ETA = 6;
 	public final static String CUORE1 = "CUORE SOLITARIO";
 	public final static String CUORE2 = "CUORI SOLITARI";
+	/**
+	 * E' una stringa autoFormattata, recante il nome del progetto, che metto in tutti i miei lavori
+	* @author Simone Giacomini s.giacomini008@studenti.unibs.it
+	* 
+	 */
   public final static String BIG_CUORE= "  ####  ##  ##    ###   ######   ####            ####     ###   ####     ####   ######    ##    ######   ####   \r\n" + 
 										" ##  ## ##  ##   ## ##   ##  ##   ##            ##  ##   ## ##   ##       ##    # ## #   ####    ##  ##   ##    \r\n" + 
 										"##      ##  ##  ##   ##  ##  ##   ##            ###     ##   ##  ##       ##      ##    ##  ##   ##  ##   ##    \r\n" + 
