@@ -120,6 +120,7 @@ public class Tamabase {
 	}
 
 	public void daiCarezze(int numeroCarezze) {
+		
 		// primo check, se il numero passato è maggiore di 20, si lancia una nuova
 		// eccezione
 		if (numeroCarezze > MAX_INPUT_STIMOLI)
