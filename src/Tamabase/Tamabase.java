@@ -67,8 +67,10 @@ public class Tamabase {
 	private static final byte OK = 0;
 
 	private static final String WARNING_AFFETTO_LOW = "ATTENZIONE!! Il valore d'affetto e' al minimo!!";
+	private static final String WARNING_AFFETTO_HIGH = "ATTENZIONE!! Il valore d'affetto' e' al massimo!!";
+	private static final String WARNING_SAZIETA_HIGH = "ATTENZIONE!! Il valore di sazieta' e' al massimo!!";
+	private static final String WARNING_SAZIETA_LOW = "ATTENZIONE!! Il valore d'affetto e' al minimo!!";
 
-	
 	/**
 	 * Costruttore a cui si passano tutti gli attributi
 	 */
@@ -131,12 +133,22 @@ public class Tamabase {
 	/**
 	 * imposta il numero dato in ingresso al numero dell'attributo sazieta
 	 * 
+	 * @see {@linkplain }
+	 * 
 	 * @param sazieta
 	 */
 	public void setSazieta(int sazieta) {
 		checkErrInBuild(sazieta, MAX_VALORI_INTERNI, MIN_VALORI_INTERNI);
 		this.sazieta = (byte) sazieta;
 
+	}
+
+	public String getSazietaFormattata() {
+		return "(" + getSazieta() + "/" + MAX_VALORI_INTERNI + ") \n";
+	}
+
+	public String getAffettoFormattato() {
+		return "(" + getAffetto() + "/" + MAX_VALORI_INTERNI + ") \n";
 	}
 
 	/**
@@ -178,17 +190,23 @@ public class Tamabase {
 	}
 
 	/**
-	 * dando in input X biscotti essi aumenteranno di X l'attributo sazieta e
-	 * faranno scendere di 5 l affetto. In più questo metodo controlla tutte le
-	 * possibili combinazioni possibili, per non settare a un valore, stabilito da
-	 * noi, troppo alto o basso gli attributi interni
+	 * dando in input X biscotti essi<b> aumenteranno di X l'attributo sazieta</b> e
+	 * <b>diminuiranno di 5 l affetto</b>. In più questo metodo <b>controlla tutte
+	 * le possibili combinazioni possibili</b> per non settare a un valore,
+	 * stabilito da noi, troppo alto o basso gli attributi interni
 	 * 
-	 * @param int numeroBiscotti
-	 * @return String output
+	 * @param int
+	 *            numeroBiscotti
+	 * @return String con i parametri aggiornati e tutti i messaggi d'errore del
+	 *         caso
+	 * 
 	 */
 	public String daiBiscotti(int numeroBiscotti) {
-			StringBuffer output = new StringBuffer();
-		// check input
+		StringBuffer error = new StringBuffer();
+
+		/**
+		 * leggere checkErrInput
+		 */
 		switch (checkErrInput(numeroBiscotti, MAX_INPUT_STIMOLI, MIN_VALORI_INTERNI)) {
 		case ERR_TOO_HIGH:
 			return ERR_NUM_INSERT_TOO_HIGHT + MAX_INPUT_STIMOLI;
@@ -198,71 +216,102 @@ public class Tamabase {
 			break;
 		}
 
-		// terzo check se la sazietÃ  Ã¨ giÃ  al massimo, non si puÃ² piÃ¹ dare biscotti
+		// terzo check se la sazieta'  e' gia'  al massimo, non si puo' piu' dare
+		// biscotti
 		if (getSazieta() >= MAX_VALORI_INTERNI)
 
 			return ERR_TAMAGOTCHI_SAZIO_AL_MAX;
 
-		// quarto check, se la somma tra la sazietÃ  precedente e i biscotti passati
-		// sarÃ 
-		// maggiore di MAX_VALORI_INTERNI, si setta la sazietÃ  al suo valore massimo
+		/**
+		 * questi due try catch servono se viene lanciata un eccezione da checkErrBuild
+		 * per capire meglio legere il suo specifico javaDoc
+		 */
 		try {
-			setAffetto(getAffetto()-DIMINUZIONE);
-			
-		}catch( IllegalArgumentException e) {
+			// lanciata eccezione se si prova ad impostare l'affetto a meno di
+			// MIN_VALORI_INTERNI
+			setAffetto(getAffetto() - DIMINUZIONE);
+
+		} catch (IllegalArgumentException e) {
+
 			setAffetto(MIN_VALORI_INTERNI);
-			output.append( WARNING_AFFETTO_LOW + MIN_VALORI_INTERNI+")");
+			error.append(WARNING_AFFETTO_LOW);
 		}
-	try {
-			setSazieta(numeroBiscotti);
-	}catch(IllegalArgumentException e) {
-		setSazieta(MAX_VALORI_INTERNI);
-		output.append("ATTENZIONE!! I valori ");//<--qui finire
-	}
-		return "";
+		try {
+			setSazieta(getSazieta() + numeroBiscotti);
+		} catch (IllegalArgumentException e) {
+
+			setSazieta(MAX_VALORI_INTERNI);
+			// qui per questioni di formattazione, ho deciso di mettere un a capo, in caso
+			// ci sia errore
+			if (error.length() > 0)
+				error.append('\n');
+			error.append(WARNING_SAZIETA_HIGH);
+		}
+
+		return "Il valore di di Sazieta' e' " + getSazietaFormattata() + "Il valore di Affetto e' "
+				+ getAffettoFormattato() + error.toString();
 	}
 
 	/**
-	 * dando in input X carezze esse aumenteranno di X l'attributo affetto e faranno scendere di 5 la sazieta. In più
-	 * questo metodo controlla tutte le possibili combinazioni possibili, per non
-	 * settare in un valore, stabilito da noi, troppo alto o basso gli attributi interni
+	 * dando in input X carezze essi<b> aumenteranno di X l'attributo affetto</b> e
+	 * <b>diminuiranno di 5 la sazita'</b>. In più questo metodo <b>controlla tutte
+	 * le possibili combinazioni possibili</b>, per non settare a un valore,
+	 * stabilito da noi, troppo alto o basso gli attributi interni
 	 * 
-	 * @param numeroCarezze
+	 * @param int
+	 *            numeroCarezze
+	 * @return String con i parametri aggiornati e tutti i messaggi d'errore del
+	 *         caso
+	 * 
 	 */
-	public void daiCarezze(int numeroCarezze) {
+	public String daiCarezze(int numeroCarezze) {
+		StringBuffer error = new StringBuffer();
 
-		//check su input
-				checkErrInput(numeroCarezze);
-				
-		// check se l' Affetto Ã¨ giÃ  al massimo, non si puÃ² piÃ¹ dare CAREZZE
+		/**
+		 * leggere checkErrInput
+		 */
+		switch (checkErrInput(numeroCarezze, MAX_INPUT_STIMOLI, MIN_VALORI_INTERNI)) {
+		case ERR_TOO_HIGH:
+			return ERR_NUM_INSERT_TOO_HIGHT + MAX_INPUT_STIMOLI;
+		case ERR_TOO_LOW:
+			return ERR_NUM_INSERT_TOO_LOW + MIN_VALORI_INTERNI;
+		default:
+			break;
+		}
+
+		// terzo check se l'affetto e' gia'  al massimo, non si puo' piu' dare carezze
 		if (getAffetto() >= MAX_VALORI_INTERNI)
-			
-				return ERR_TAMAGOTCHI_AFFETTO_MAX);
 
-		// quarto check, se la somma tra l Affetto precedente e le CAREZZE passate sarÃ 
-		// maggiore di MAX_VALORI_INTERNI, si setta l Affetto al suo valore massimo
-		if (getAffetto() + numeroCarezze >= MAX_VALORI_INTERNI && getSazieta() - DIMINUZIONE >= MIN_VALORI_INTERNI) {
-			setSazieta((byte) (getSazieta() - DIMINUZIONE));
+			return ERR_TAMAGOTCHI_AFFETTO_MAX;
+
+		/**
+		 * questi due try catch servono se viene lanciata un eccezione da
+		 * <h1>checkErrBuild</h1> per capire meglio leggere il suo specifico javaDoc
+		 */
+		try {
+			// lanciata eccezione se si prova ad impostare la sazieta' a meno di
+			// MIN_VALORI_INTERNI
+			setSazieta(getSazieta() - DIMINUZIONE);
+
+		} catch (IllegalArgumentException e) {
+
+			setSazieta(MIN_VALORI_INTERNI);
+			error.append(WARNING_SAZIETA_LOW);
+		}
+		try {
+			setAffetto((getAffetto() + numeroCarezze));
+		} catch (IllegalArgumentException e) {
+
 			setAffetto(MAX_VALORI_INTERNI);
-			System.out.println("l'attributo Affetto è stato impostato a " + MAX_VALORI_INTERNI
-					+ " in quanto e' il valore massimo dei valori interni");
-		} 
-		else if (getAffetto() + numeroCarezze >= MAX_VALORI_INTERNI
-				&& getSazieta() - DIMINUZIONE < MIN_VALORI_INTERNI) {
-			setSazieta((byte) (MIN_VALORI_INTERNI));
-			setAffetto(MAX_VALORI_INTERNI);
-			System.out.println("l'attributo Affetto è stato impostato a " + MAX_VALORI_INTERNI
-					+ " in quanto e' il valore massimo dei valori interni;\nMentre l'attributo sazieta' e' stato impostato a "
-					+ MIN_VALORI_INTERNI + "in qunato valore minimo dwgli attributi interni");
+			// qui per questioni di formattazione, ho deciso di mettere un a capo, in caso
+			// ci sia errore
+			if (error.length() > 0)
+				error.append('\n');
+			error.append(WARNING_AFFETTO_HIGH);
 		}
 
-		// altrementi, si esegue il calcolo dettato
-		else {
-			System.out.println("WEWE");
-			setSazieta((byte) (getSazieta() - DIMINUZIONE));
-			setAffetto((byte) (getAffetto() + numeroCarezze));
-		}
-
+		return "Il valore di di Sazieta' e' " + getSazietaFormattata() + "Il valore di Affetto e' "
+				+ getAffettoFormattato() + error.toString();
 	}
 
 	public boolean isTriste() {
@@ -276,8 +325,5 @@ public class Tamabase {
 			return true;
 		return false;
 	}
-		
-	
-	
 
 }
