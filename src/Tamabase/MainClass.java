@@ -1,19 +1,18 @@
 package Tamabase;
 
-import it.unibs.fp.mylib.BelleStringhe;
+import java.awt.Menu;
+import java.text.DecimalFormat;
+
+import it.unibs.fp.mylib.MyMenu;
 
 public class MainClass {
-
+	
+	public static final String[] voci= {"Dai biscotti","Dai carezze","FINE =("};
+	
 	public static void main(String[] args) {
 		
-		System.out.println("######    ##    ##   ##   ##    ######    ##     ####   #######\r\n" + 
-				"# ## #   ####   ### ###  ####    ##  ##  ####   ##  ##   ##   #\r\n" + 
-				"  ##    ##  ##  ####### ##  ##   ##  ## ##  ##  ###      ## #\r\n" + 
-				"  ##    ##  ##  ####### ##  ##   #####  ##  ##   ###     ####\r\n" + 
-				"  ##    ######  ## # ## ######   ##  ## ######     ###   ## #\r\n" + 
-				"  ##    ##  ##  ##   ## ##  ##   ##  ## ##  ##  ##  ##   ##   #\r\n" + 
-				" ####   ##  ##  ##   ## ##  ##  ######  ##  ##   ####   ####### by Simone Giacomini \n");
-		System.out.println(BelleStringhe.incolonna("LOMBRICO", 52));
+		
+		
 	}
 
 }
