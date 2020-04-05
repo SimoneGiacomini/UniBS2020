@@ -1,7 +1,5 @@
 package Tamabase;
 
-import java.util.InputMismatchException;
-
 /**
  * @author Simone Giacomini s.giacomini008@studenti.unibs.it
  */
@@ -19,13 +17,13 @@ public class Tamabase {
 	 * @author Simone Giacomini s.giacomini008@studenti.unibs.it
 	 * 
 	 */
-	public static final String BIG_TAMABASE = "######    ##    ##   ##   ##    ######    ##     ####   #######\r\n"
-			+ "# ## #   ####   ### ###  ####    ##  ##  ####   ##  ##   ##   #\r\n"
-			+ "  ##    ##  ##  ####### ##  ##   ##  ## ##  ##  ###      ## #\r\n"
-			+ "  ##    ##  ##  ####### ##  ##   #####  ##  ##   ###     ####\r\n"
-			+ "  ##    ######  ## # ## ######   ##  ## ######     ###   ## #\r\n"
-			+ "  ##    ##  ##  ##   ## ##  ##   ##  ## ##  ##  ##  ##   ##   #\r\n"
-			+ " ####   ##  ##  ##   ## ##  ##  ######  ##  ##   ####   ####### by Simone Giacomini \n";
+	public static final String BIG_TAMABASE ="¶¶¶¶¶¶    ¶¶    ¶¶   ¶¶   ¶¶    ¶¶¶¶¶¶    ¶¶     ¶¶¶¶   ¶¶¶¶¶¶¶ \n" + 
+			"¶ ¶¶ ¶   ¶¶¶¶   ¶¶¶ ¶¶¶  ¶¶¶¶    ¶¶  ¶¶  ¶¶¶¶   ¶¶  ¶¶   ¶¶   ¶ \n" + 
+			"  ¶¶    ¶¶  ¶¶  ¶¶¶¶¶¶¶ ¶¶  ¶¶   ¶¶  ¶¶ ¶¶  ¶¶  ¶¶¶      ¶¶ ¶   \n" + 
+			"  ¶¶    ¶¶  ¶¶  ¶¶¶¶¶¶¶ ¶¶  ¶¶   ¶¶¶¶¶  ¶¶  ¶¶   ¶¶¶     ¶¶¶¶   \n" + 
+			"  ¶¶    ¶¶¶¶¶¶  ¶¶ ¶ ¶¶ ¶¶¶¶¶¶   ¶¶  ¶¶ ¶¶¶¶¶¶     ¶¶¶   ¶¶ ¶   \n" + 
+			"  ¶¶    ¶¶  ¶¶  ¶¶   ¶¶ ¶¶  ¶¶   ¶¶  ¶¶ ¶¶  ¶¶  ¶¶  ¶¶   ¶¶   ¶ \n" + 
+			" ¶¶¶¶   ¶¶  ¶¶  ¶¶   ¶¶ ¶¶  ¶¶  ¶¶¶¶¶¶  ¶¶  ¶¶   ¶¶¶¶   ¶¶¶¶¶¶¶ by Simone Giacomini" ;
 	/**
 	 * Massimo numero di biscotti e di carezze
 	 */
@@ -59,13 +57,13 @@ public class Tamabase {
 	private static final String ERR_STRINGA_VUOTA = "ATTENZIONE IL PARAMETRO NON PUO' ESSERE UNA STRINGA VUOTA";
 	private static final String ERR_NUM_INSERT_TOO_HIGHT = "ATTENZIONE, IL NUMERO INSERITO e' TROPPO ALTO, IL MASSIMO e' ";
 	private static final String ERR_NUM_INSERT_TOO_LOW = "ATTENZIONE, IL NUMERO INSERITO e' TROPPO BASSO, MINIMO ";
-	private static final String ERR_TAMAGOTCHI_AFFETTO_MAX = "ATTENZIONE, IL TAMAGOTCHI ti adora al massimo <3\n NON Puoi dare piu' CAREZZE";
+	private static final String ERR_TAMAGOTCHI_AFFETTO_MAX = "ATTENZIONE, IL TAMAGOTCHI ti adora al massimo <3. NON Puoi dare piu' CAREZZE";
 	private static final String ERR_TAMAGOTCHI_SAZIO_AL_MAX = "ATTENZIONE, IL TAMAGOTCHI e' Sazio al massimo! NON Puoi dare piu' BISCOTTI";
-	// private static final byte
+
 	private static final byte ERR_TOO_LOW = -1;
 	private static final byte ERR_TOO_HIGH = +1;
 	private static final byte OK = 0;
-
+	//tutti gli AVVERTIMENTI che si possono avere
 	private static final String WARNING_AFFETTO_LOW = "ATTENZIONE!! Il valore d'affetto e' al minimo!!";
 	private static final String WARNING_AFFETTO_HIGH = "ATTENZIONE!! Il valore d'affetto' e' al massimo!!";
 	private static final String WARNING_SAZIETA_HIGH = "ATTENZIONE!! Il valore di sazieta' e' al massimo!!";
@@ -133,7 +131,7 @@ public class Tamabase {
 	/**
 	 * imposta il numero dato in ingresso al numero dell'attributo sazieta
 	 * 
-	 * @see {@linkplain }
+	 * {@link #checkErrInBuild()}
 	 * 
 	 * @param sazieta
 	 */
