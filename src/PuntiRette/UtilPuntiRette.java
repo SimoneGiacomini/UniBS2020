@@ -1,4 +1,5 @@
 package PuntiRette;
+import it.unibs.fp.mylib.*;
 
 public class UtilPuntiRette {
 

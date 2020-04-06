@@ -1,4 +1,6 @@
 package CuoriSolitari;
+import it.unibs.fp.mylib.*;
+
 
 public class UtilCuoreSolitario {
 
