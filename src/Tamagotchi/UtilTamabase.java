@@ -1,4 +1,4 @@
-package Tamabase;
+package Tamagotchi;
 
 import it.unibs.fp.mylib.*;;
 
