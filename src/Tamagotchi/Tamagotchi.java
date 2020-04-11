@@ -3,7 +3,7 @@ package Tamagotchi;
 /**
  * @author Simone Giacomini s.giacomini008@studenti.unibs.it
  */
-public class Tamabase {
+public class Tamagotchi {
 
 	private String nome;
 	private byte affetto;
@@ -17,13 +17,13 @@ public class Tamabase {
 	 * @author Simone Giacomini s.giacomini008@studenti.unibs.it
 	 * 
 	 */
-	public static final String BIG_TAMABASE = "¶¶¶¶¶¶    ¶¶    ¶¶   ¶¶   ¶¶    ¶¶¶¶¶¶    ¶¶     ¶¶¶¶   ¶¶¶¶¶¶¶ \n"
-			+ "¶ ¶¶ ¶   ¶¶¶¶   ¶¶¶ ¶¶¶  ¶¶¶¶    ¶¶  ¶¶  ¶¶¶¶   ¶¶  ¶¶   ¶¶   ¶ \n"
-			+ "  ¶¶    ¶¶  ¶¶  ¶¶¶¶¶¶¶ ¶¶  ¶¶   ¶¶  ¶¶ ¶¶  ¶¶  ¶¶¶      ¶¶ ¶   \n"
-			+ "  ¶¶    ¶¶  ¶¶  ¶¶¶¶¶¶¶ ¶¶  ¶¶   ¶¶¶¶¶  ¶¶  ¶¶   ¶¶¶     ¶¶¶¶   \n"
-			+ "  ¶¶    ¶¶¶¶¶¶  ¶¶ ¶ ¶¶ ¶¶¶¶¶¶   ¶¶  ¶¶ ¶¶¶¶¶¶     ¶¶¶   ¶¶ ¶   \n"
-			+ "  ¶¶    ¶¶  ¶¶  ¶¶   ¶¶ ¶¶  ¶¶   ¶¶  ¶¶ ¶¶  ¶¶  ¶¶  ¶¶   ¶¶   ¶ \n"
-			+ " ¶¶¶¶   ¶¶  ¶¶  ¶¶   ¶¶ ¶¶  ¶¶  ¶¶¶¶¶¶  ¶¶  ¶¶   ¶¶¶¶   ¶¶¶¶¶¶¶ by Simone Giacomini";
+	public static final String BIG_TAMABASE = "######    ##    ##   ##   ##      ####    ###   ######    ####  ##  ##   ####   \n" + 
+			"# ## #   ####   ### ###  ####    ##  ##  ## ##  # ## #   ##  ## ##  ##    ##    \n" + 
+			"  ##    ##  ##  ####### ##  ##  ##      ##   ##   ##    ##      ##  ##    ##    \n" + 
+			"  ##    ##  ##  ####### ##  ##  ##      ##   ##   ##    ##      ######    ##    \n" + 
+			"  ##    ######  ## # ## ######  ##  ### ##   ##   ##    ##      ##  ##    ##    \n" + 
+			"  ##    ##  ##  ##   ## ##  ##   ##  ##  ## ##    ##     ##  ## ##  ##    ##    \n" + 
+			" ####   ##  ##  ##   ## ##  ##    #####   ###    ####     ####  ##  ##   ####    by Simone Giacomini";
 	/**
 	 * Massimo numero di biscotti e di carezze
 	 */
@@ -61,7 +61,7 @@ public class Tamabase {
 	/**
 	 * faccina felice(≡^∇^≡)
 	 */
-	public static final String HAPPY = "(≡^∇^≡)";
+	public static final String HAPPY = "(^w^)";
 	/**
 	 * faccina triste(T^T)
 	 */
@@ -69,7 +69,7 @@ public class Tamabase {
 	/**
 	 * faccina normale
 	 */
-	public static final String NORMAL = "(^ω^)";
+	public static final String NORMAL = "(^_^)";
 
 	// TUTTI GLI ERRORI
 	private static final String ERR_STRINGA_VUOTA = "ATTENZIONE IL PARAMETRO NON PUO' ESSERE UNA STRINGA VUOTA";
@@ -90,7 +90,7 @@ public class Tamabase {
 	/**
 	 * Costruttore a cui si passano tutti gli attributi
 	 */
-	public Tamabase(String nome, int affetto, int sazieta) {
+	public Tamagotchi(String nome, int affetto, int sazieta) {
 
 		setNome(nome);
 		setAffetto(affetto);
@@ -100,7 +100,7 @@ public class Tamabase {
 	/**
 	 * Costruttore vuoto
 	 */
-	public Tamabase() {
+	public Tamagotchi() {
 		nome = null;
 		sazieta = affetto = VAL_INIZ_RECOMMEND;
 	}
@@ -133,7 +133,7 @@ public class Tamabase {
 	 * Imposta il numero dato in ingresso al numero dell'attributo affetto.
 	 * 
 	 * @param affetto
-	 * @see Tamabase#checkErrInBuild
+	 * @see Tamagotchi#checkErrInBuild
 	 */
 	public void setAffetto(int affetto) {
 
@@ -150,7 +150,7 @@ public class Tamabase {
 	/**
 	 * imposta il numero dato in ingresso al numero dell'attributo sazieta
 	 * 
-	 * @see Tamabase#checkErrInBuild
+	 * @see Tamagotchi#checkErrInBuild
 	 * 
 	 * @param sazieta
 	 */
@@ -171,7 +171,7 @@ public class Tamabase {
 	/**
 	 * controlla se numeroInput è all'interno di un range
 	 * 
-	 * @see Tamabase#checkErrInput
+	 * @see Tamagotchi#checkErrInput
 	 * 
 	 * @throws IllegalArgumentException
 	 *             se il numero passato è maggiore del massimo
