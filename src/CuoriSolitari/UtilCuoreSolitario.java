@@ -1,6 +1,6 @@
 package CuoriSolitari;
-import it.unibs.fp.mylib.*;
 
+import it.unibs.fp.mylib.InputDati;
 
 public class UtilCuoreSolitario {
 
@@ -50,7 +50,7 @@ public class UtilCuoreSolitario {
 		s.setSesso(Sesso.values()[numeroScelto]);
 	}
 
-	private static int acquisisciSegno(String messaggio) {
+	private static byte acquisisciSegno(String messaggio) {
 
 		int numeroScelto;
 		String tuttiSegni = "";
@@ -61,15 +61,17 @@ public class UtilCuoreSolitario {
 		}
 		numeroScelto = InputDati.leggiIntero(messaggio+tuttiSegni, 0, SegnoZodiacale.values().length-1);
 
-		return numeroScelto;
+		return (byte) numeroScelto;
 	}
 
 	private static void acquisisciSegnoSolitario(Solitario s) {
-		s.setSegnoSolitario(SegnoZodiacale.values()[acquisisciSegno("Di che segno Zodiacale e'? \n")]);
+		byte valore =acquisisciSegno("Di che segno Zodiacale e'? \n");
+		s.setSegnoSolitario(SegnoZodiacale.values()[valore]);
 	}
 
 	private static void acquisisciSegnoPartner(Solitario s) {
-		s.setSegnoPartner(SegnoZodiacale.values()[acquisisciSegno("Mentre di che segno Zodiacale vorrebbe il partner? \n")]);
+		byte valore= acquisisciSegno("Mentre di che segno Zodiacale vorrebbe il partner? \n");
+		s.setSegnoPartner(SegnoZodiacale.values()[valore]);
 	}
 	
 	public static void Saluto(Solitario s) {

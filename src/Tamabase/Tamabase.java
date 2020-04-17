@@ -59,17 +59,17 @@ public class Tamabase {
 	 */
 	public static final byte VAL_INIZ_RECOMMEND = (SOGLIA_FELICITA + SOGLIA_TRISTEZZA) / 2;
 	/**
-	 * faccina felice(≡^∇^≡)
+	 * faccina felice(^w^)
 	 */
-	public static final String HAPPY = "(≡^∇^≡)";
+	public static final String HAPPY = "(^w^)";
 	/**
 	 * faccina triste(T^T)
 	 */
-	public static final String SAD = "(T^T)";
+	public static final String SAD = "(TT)";
 	/**
 	 * faccina normale
 	 */
-	public static final String NORMAL = "(^ω^)";
+	public static final String NORMAL = "(^_^)";
 
 	// TUTTI GLI ERRORI
 	private static final String ERR_STRINGA_VUOTA = "ATTENZIONE IL PARAMETRO NON PUO' ESSERE UNA STRINGA VUOTA";

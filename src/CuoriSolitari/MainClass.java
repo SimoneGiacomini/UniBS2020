@@ -1,8 +1,5 @@
 package CuoriSolitari;
 
-import java.io.IOException;
-
-import javax.swing.SingleSelectionModel;
 
 class MainClass {
 

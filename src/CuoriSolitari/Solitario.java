@@ -2,11 +2,11 @@ package CuoriSolitari;
 
 class Solitario {
 
-	public String pseudonimo;
-	public byte eta;
-	public Sesso sesso;
-	public SegnoZodiacale segnoSolitario;
-	public SegnoZodiacale segnoPartner;
+	private String pseudonimo;
+	private  byte eta;
+	private  Sesso sesso;
+	private  SegnoZodiacale segnoSolitario;
+	private  SegnoZodiacale segnoPartner;
 	// COSTANTI UTILI
 	public final static byte SOGLIA_DIFF_MIN_ETA = 6;
 	public final static String CUORE1 = "CUORE SOLITARIO";
