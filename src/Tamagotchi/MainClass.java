@@ -2,30 +2,37 @@ package Tamagotchi;
 
 import it.unibs.fp.mylib.InputDati;
 
-/**classe Main 
- *  @author Simone Giacomini s.giacomini008@studenti.unibs.it
+/**
+ * classe Main
+ * 
+ * @author Simone Giacomini s.giacomini008@studenti.unibs.it
  */
 
 public class MainClass {
 
-	public static final String CREAZIONE_TAMA_PERSONALIZ = "Vuoi creare il tuo "+Tamagotchi.class.getSimpleName()+" con valori consigliati (S) oppure a mano (N) \u003f ";
-	public final static String SALUTO = "Ciao, questo programma ti permette di avere un  "+Tamagotchi.class.getSimpleName()+" tutto tuo ;-)";
-	public static final String ARRIVEDERCI = "ARRIVEDERCI";
-	public static void main(String[] args){
+	public static final String CREAZIONE_TAMA_PERSONALIZ = String.format(
+			"Vuoi creare il tuo %s con valori consigliati (%c) oppure a mano (%c) \u003f ",
+			Tamagotchi.class.getSimpleName(), InputDati.RISPOSTA_SI, InputDati.RISPOSTA_NO);
+	
+	public final static String SALUTO = "Ciao, questo programma ti permette di avere un  "
+			+ Tamagotchi.class.getSimpleName() + " tutto tuo ;-)";
+	public final static String ARRIVEDERCI = "ARRIVEDERCI, TORNA A GIOCARE ";
 
-		Tamagotchi t = null;
+	public static void main(String[] args) {
+
+		Tamagotchi tam = null;
 		System.out.println(Tamagotchi.BIG_TAMAGOTCHI + System.lineSeparator());
 		System.out.println(SALUTO);
-	if(InputDati.yesOrNo(CREAZIONE_TAMA_PERSONALIZ))
-		t=UtilTamagotchi.creaTamagotchiReccomed();
-	else 
-		t=UtilTamagotchi.creaTamagotchi();
-		GiocaTamagotchi.usaTamagotchi(t);
+		if (InputDati.yesOrNo(CREAZIONE_TAMA_PERSONALIZ)) 
+			tam = UtilTamagotchi.creaTamagotchiReccomed();
+		else 
+			tam = UtilTamagotchi.creaTamagotchi();
+		GiocaTamagotchi.miPresento(tam);
+		GiocaTamagotchi.usaTamagotchi(tam);
 		System.out.println(ARRIVEDERCI);
-		//questo system.exit e' qui in modo da non far visualizzare piu' volte l'ultima scritta "ARRIVEDERCI"
+		// questo system.exit e' qui in modo da non far visualizzare piu' volte l'ultima
+		// scritta "ARRIVEDERCI"
 		System.exit(0);
 	}
-
-	
 
 }

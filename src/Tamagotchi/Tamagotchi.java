@@ -1,13 +1,12 @@
 package Tamagotchi;
 
 /**
- * Classe che rappresenta un <a href="https://it.wikipedia.org/wiki/Tamagotchi"> Tamagotchi
- *      </a>
+ * Classe che rappresenta un <a href="https://it.wikipedia.org/wiki/Tamagotchi">
+ * Tamagotchi </a>
  * 
  * @author Simone Giacomini s.giacomini008@studenti.unibs.it
  */
 public class Tamagotchi {
-
 	/**
 	 * attributo {@linkplain String} che rappresenta il {@linkplain #nome} del
 	 * {@linkplain Tamagotchi}
@@ -24,6 +23,8 @@ public class Tamagotchi {
 	 */
 	private float sazieta;
 
+	private byte numVolteDaiCarezze = 0;
+	private byte numVolteDaiBiscotti = 0;
 	/**
 	 * {@linkplain String} autoFormattata, recante il nome del progetto, che
 	 * inserisco in tutti i miei lavori
@@ -48,7 +49,8 @@ public class Tamagotchi {
 	public static final byte MIN_VALORI_INTERNI = 0;
 
 	/**
-	 * E' un valore <b>consigliato </b>per quando si istanzia un {@linkplain Tamagotchi}.
+	 * E' un valore <b>consigliato </b>per quando si istanzia un
+	 * {@linkplain Tamagotchi}.
 	 */
 	public static final byte VAL_INIZ_RECOMMEND = 20;
 
@@ -62,7 +64,9 @@ public class Tamagotchi {
 	public static final String NORMAL = "(^_^)";
 
 	/** faccina morta {@value} */
-	public static final String DIE = "(X_X)";//
+	public static final String DIE = "(X_X)";
+	/** faccina arrabbiata {@value} */
+	public static final String ANGRY = ">=(";
 	/** Soglia della TRISTEZZA */
 	private static final byte SOGLIA_TRISTEZZA = 30;
 
@@ -88,7 +92,7 @@ public class Tamagotchi {
 	 * 
 	 * @see #daiBiscotti
 	 */
-	private static final byte PERCENTUALE_AUMENTA_BISCOTTI = 10;
+	private static final float PERCENTUALE_AUMENTA_BISCOTTI = 10;
 
 	/**
 	 * fattore utilizzato per <b>DIVIDERE</b> i <b>biscotti</b> ricevuti nel metodo
@@ -97,6 +101,31 @@ public class Tamagotchi {
 	 * @see #daiBiscotti
 	 */
 	private static final byte FATTORE_BISCOTTI = 4;
+
+	/** {@linkplain String} di <b>biscotti</b> */
+	private static final String BISCOTTI = "biscotti";
+	/** {@linkplain String} di <b>carezze</b> */
+	private static final String CAREZZE = "carezze";
+	/**
+	 * Sono il numero di volte che al {@linkplain Tamagotchi} va bene ricevere
+	 * {@linkplain #CAREZZE}
+	 */
+	private static final int TOO_MUCH_CAREZZE = 5;
+	/**
+	 * Quando si danno per troppe volte {@linkplain #CAREZZE} o
+	 * {@linkplain #BISCOTTI} il {@linkplain Tamagotchi} si stanca e non ha piu'
+	 * voglia
+	 */
+	private static final String TOO_MUCH_STIMULUS = "HAI DATO TROPPE VOLTE %s, ORA NON NE HA PIU'TANTA VOGLIA ";
+	/**
+	 * quanto gli stimoli vengono ridotti, dopo che ne ha ricevuti troppi di seguito
+	 */
+	private static final double RIDUZ_EFF_STIMULUS = 2.00;
+	/**
+	 * Sono il numero di volte che al {@linkplain Tamagotchi} va bene ricevere
+	 * {@linkplain #BISCOTTI}
+	 */
+	private static final int TOO_MUCH_BISCOTTI = 2;
 
 	/** {@linkplain String} di {@linkplain #affetto} */
 	public static final String AFFETTO = "affetto";
@@ -148,8 +177,7 @@ public class Tamagotchi {
 	 * viene assegnato all'attributo {@linkplain #nome} la {@linkplain String}
 	 * passata in ingresso
 	 * 
-	 * @throws IllegalArgumentException
-	 *             se la stringa passata e' vuota o nulla
+	 * @throws IllegalArgumentException se la stringa passata e' vuota o nulla
 	 * @param nome
 	 */
 	public void setNome(String nome) {
@@ -200,7 +228,7 @@ public class Tamagotchi {
 	 * ({@linkplain #sazieta}/{@linkplain #MAX_VALORI_INTERNI})
 	 */
 	public String getSazietaFormattata() {
-		return "(" + getSazieta() + "/" + MAX_VALORI_INTERNI + ") \n";
+		return String.format("(%.2f/%d)%s", getSazieta(), MAX_VALORI_INTERNI, System.lineSeparator());
 	}
 
 	/**
@@ -208,12 +236,13 @@ public class Tamagotchi {
 	 * ({@linkplain #affetto}/{@linkplain #MAX_VALORI_INTERNI})
 	 */
 	public String getAffettoFormattato() {
-		return "(" + getAffetto() + "/" + MAX_VALORI_INTERNI + ") \n";
+		return String.format("(%.2f/%d)%s", getAffetto(), MAX_VALORI_INTERNI, System.lineSeparator());
 	}
 
 	/**
-	 * Ritorna una {@linkplain String} con {@linkplain #nome}, {@linkplain #umore()}, ed
-	 * {@linkplain #sazieta} e {@linkplain #affetto} formattate
+	 * Ritorna una {@linkplain String} con {@linkplain #nome},
+	 * {@linkplain #umore()}, ed {@linkplain #sazieta} e {@linkplain #affetto}
+	 * formattate
 	 * 
 	 * @see {@linkplain #getSazietaFormattata()},
 	 *      {@linkplain #getAffettoFormattato()}
@@ -231,15 +260,18 @@ public class Tamagotchi {
 	 * formula: {@code affetto=affetto-(numerobiscotti/4)}</b>. In piu' questo
 	 * metodo <b>controlla tutte le possibili combinazioni possibili</b> per non
 	 * settare a un valore, stabilito da noi, troppo alto
-	 * ({@linkplain #MIN_VALORI_INTERNI}) o basso ({@linkplain #MIN_VALORI_INTERNI})
+	 * ({@linkplain #MAX_VALORI_INTERNI}) o basso ({@linkplain #MIN_VALORI_INTERNI})
 	 * gli attributi
 	 * 
 	 * @param numeroBiscotti
 	 * @return {@linkplain String} con i parametri aggiornati e tutti i messaggi
 	 *         d'errore del caso
-	 * @see {@linkplain UtilTamagotchi#checkErrInBuild}, {@linkplain Tamagotchi#toString()}
+	 * @see {@linkplain UtilTamagotchi#checkErrInBuild},
+	 *      {@linkplain Tamagotchi#toString()}
 	 */
 	public String daiBiscotti(int numeroBiscotti) {
+		numVolteDaiBiscotti++;
+		numVolteDaiCarezze = 0;// numVolteDaiCarezze--;
 		StringBuffer error = new StringBuffer();
 		switch (UtilTamagotchi.inRange(numeroBiscotti, MAX_INPUT_STIMOLI, MIN_VALORI_INTERNI)) {
 		case UtilTamagotchi.ERR_TOO_HIGH:
@@ -249,24 +281,28 @@ public class Tamagotchi {
 		default:
 			break;
 		}
-
+		if (numVolteDaiBiscotti > TOO_MUCH_BISCOTTI) {
+			numeroBiscotti = (int) Math.round((double) numeroBiscotti / RIDUZ_EFF_STIMULUS);// numeroBiscotti=numeroBiscotti/2;
+			error.append(String.format(TOO_MUCH_STIMULUS + System.lineSeparator(), BISCOTTI.toUpperCase()));
+		}
 		// terzo check se la sazieta'  e' gia'  al massimo, non si puo' piu' dare
 		// biscotti
-		if (getSazieta() >= MAX_VALORI_INTERNI)
+		if (Math.min(getSazieta(), MAX_VALORI_INTERNI) == MAX_VALORI_INTERNI)
 
 			return ERR_TAMAGOTCHI_SAZIO_AL_MAX;
 
 		try {
 			// lanciata eccezione se si prova ad impostare l'affetto a meno di
 			// MIN_VALORI_INTERNI
-			setAffetto((float) (getAffetto() - (float) (numeroBiscotti / FATTORE_BISCOTTI)));
+			setAffetto((getAffetto() - (float) (numeroBiscotti) / (float) (FATTORE_BISCOTTI)));
 		} catch (IllegalArgumentException e) {
 			setAffetto(MIN_VALORI_INTERNI);
 		}
 		try {
-			for (int i = 0; i < numeroBiscotti; i++) {
-				setSazieta(getSazieta() + UtilTamagotchi.percentuale(PERCENTUALE_AUMENTA_BISCOTTI, getSazieta()));
-			}
+
+			setSazieta((float) UtilTamagotchi.incrementoInPercentuale(getSazieta(), numeroBiscotti,
+					PERCENTUALE_AUMENTA_BISCOTTI));
+
 		} catch (IllegalArgumentException e) {
 			setSazieta(MAX_VALORI_INTERNI);
 		}
@@ -278,9 +314,9 @@ public class Tamagotchi {
 				error.append('\t');
 			error.append(String.format(WARNING_HIGH, SAZIETA));
 		}
-		return error.toString()+ toString() ;
-	}
+		return error.toString() + toString();
 
+	}
 
 	/**
 	 * dando in input X carezze esse<b> aumenteranno di X l'attributo
@@ -288,18 +324,20 @@ public class Tamagotchi {
 	 * la formula: {@code sazieta=sazieta-(numeroCarezze/2)}</b>. In piu' questo
 	 * metodo <b>controlla tutte le possibili combinazioni possibili</b>, per non
 	 * settare a un valore, stabilito da noi, troppo alto
-	 * ({@linkplain #MIN_VALORI_INTERNI}) o basso ({@linkplain #MIN_VALORI_INTERNI})
+	 * ({@linkplain #MAX_VALORI_INTERNI}) o basso ({@linkplain #MIN_VALORI_INTERNI})
 	 * gli attributi
 	 * 
 	 * @param numeroCarezze
 	 * @return {@linkplain String} con i parametri aggiornati e tutti i messaggi
 	 *         d'errore del caso
-	 * @see {@linkplain UtilTamagotchi#checkErrInBuild}, {@linkplain Tamagotchi#toString()}
+	 * @see {@linkplain UtilTamagotchi#checkErrInBuild},
+	 *      {@linkplain Tamagotchi#toString()}
 	 * 
 	 */
 	public String daiCarezze(int numeroCarezze) {
+		numVolteDaiCarezze++;
+		numVolteDaiBiscotti = 0;
 		StringBuffer error = new StringBuffer();
-
 		switch (UtilTamagotchi.inRange(numeroCarezze, MAX_INPUT_STIMOLI, MIN_VALORI_INTERNI)) {
 		case UtilTamagotchi.ERR_TOO_HIGH:
 			return UtilTamagotchi.ERR_NUM_INSERT_TOO_HIGHT + MAX_INPUT_STIMOLI;
@@ -308,13 +346,17 @@ public class Tamagotchi {
 		default:
 			break;
 		}
+		if (numVolteDaiCarezze > TOO_MUCH_CAREZZE) {
+			numeroCarezze = (int) Math.round((double) numeroCarezze / RIDUZ_EFF_STIMULUS);
+			error.append(String.format(TOO_MUCH_STIMULUS + System.lineSeparator(), CAREZZE.toUpperCase()));
+		}
 		// terzo check se l'affetto e' gia'  al massimo, non si puo' piu' dare carezze
-		if (getAffetto() >= MAX_VALORI_INTERNI)
+		if (Math.min(getAffetto(), MAX_VALORI_INTERNI) == MAX_VALORI_INTERNI)
 			return ERR_TAMAGOTCHI_AFFETTO_MAX;
 		try {
 			// lanciata eccezione se si prova ad impostare la sazieta' a meno di
 			// MIN_VALORI_INTERNI
-			setSazieta((getSazieta() - (float) (numeroCarezze / FATTORE_CAREZZE)));
+			setSazieta((getSazieta() - (float) (numeroCarezze) / (float) (FATTORE_CAREZZE)));
 		} catch (IllegalArgumentException e) {
 			setSazieta(MIN_VALORI_INTERNI);
 		}
@@ -332,7 +374,7 @@ public class Tamagotchi {
 				error.append('\t');
 			error.append(String.format(WARNING_HIGH, AFFETTO));
 		}
-		return error.toString()+ toString();
+		return error.toString() + toString();
 	}
 
 	/**
@@ -365,7 +407,8 @@ public class Tamagotchi {
 	 */
 	public boolean isMorto() {
 
-		if (UtilTamagotchi.inRange(sazieta, MAX_VALORI_INTERNI - 1, MIN_VALORI_INTERNI + 1) != 0 || affetto == MIN_VALORI_INTERNI)
+		if (UtilTamagotchi.inRange(sazieta, MAX_VALORI_INTERNI - 1, MIN_VALORI_INTERNI + 1) != 0
+				|| getAffetto() == MIN_VALORI_INTERNI)
 			return true;
 		return false;
 	}
@@ -398,6 +441,10 @@ public class Tamagotchi {
 	public String getStatistiche() {
 		return getSazietaFormattata() + getAffettoFormattato();
 
+	}
+
+	public String eco(String messaggio) {
+		return String.format("%s dice-> \"%s\"", getNome(), messaggio);
 	}
 
 }
