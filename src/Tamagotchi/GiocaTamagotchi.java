@@ -31,8 +31,9 @@ public class GiocaTamagotchi {
 		do {
 
 			if (GiocaTamagotchi.endGame(tam))
+				{System.out.println(String.format("%s %s", tam.eco("Addio, sono morto"),Tamagotchi.DIE));
 				if (!GiocaTamagotchi.rePlay())
-					break;
+					break;}
 
 			scelta = (byte) m.scegli();
 			switch (scelta) {

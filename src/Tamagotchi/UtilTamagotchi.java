@@ -63,7 +63,7 @@ public class UtilTamagotchi {
 	 */
 	public static Tamagotchi creaTamagotchi() {
 
-		Tamagotchi tam = new Tamagotchi(InputDati.leggiStringa(NEW_NOME_TAMAGOTCHI),
+		Tamagotchi tam = new Tamagotchi(InputDati.leggiStringaNonVuota(NEW_NOME_TAMAGOTCHI),
 				InputDati.leggiFloat(NEW_AFFETTO_TAMAGOTCHI, Tamagotchi.MAX_INPUT_STIMOLI,
 						Tamagotchi.MAX_VALORI_INTERNI),
 				InputDati.leggiFloat(NEW_SAZIETA_TAMAGOTCHI, Tamagotchi.MAX_INPUT_STIMOLI,
