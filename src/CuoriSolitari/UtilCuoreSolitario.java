@@ -1,6 +1,6 @@
 package CuoriSolitari;
 
-import it.unibs.fp.mylib.InputDati;
+import util.mylib.InputDati;
 
 public class UtilCuoreSolitario {
 

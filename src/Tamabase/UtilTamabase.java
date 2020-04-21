@@ -1,7 +1,6 @@
 package Tamabase;
 
-import it.unibs.fp.mylib.InputDati;
-import it.unibs.fp.mylib.MyMenu;
+import util.mylib.*;
 
 public class UtilTamabase {
 

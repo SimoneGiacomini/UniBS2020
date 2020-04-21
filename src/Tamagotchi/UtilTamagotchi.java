@@ -1,6 +1,6 @@
 package Tamagotchi;
 
-import it.unibs.fp.mylib.InputDati;
+import util.mylib.*;
 
 /**
  * classe utile per interfacciarsi al {@linkplain Tamagotchi}

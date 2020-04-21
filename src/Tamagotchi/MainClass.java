@@ -1,6 +1,6 @@
 package Tamagotchi;
 
-import it.unibs.fp.mylib.InputDati;
+import util.mylib.*;
 
 /**
  * classe Main

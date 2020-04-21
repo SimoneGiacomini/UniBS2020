@@ -1,6 +1,6 @@
 package Tamabase;
 
-import it.unibs.fp.mylib.InputDati;
+import util.mylib.*;
 
 public class MainClass {
 

@@ -1,9 +1,6 @@
 package Tamagotchi;
 
-import it.unibs.fp.mylib.EstrazioniCasuali;
-import it.unibs.fp.mylib.InputDati;
-import it.unibs.fp.mylib.MyMenu;
-
+import util.mylib.*;
 /**
  * Classe per far giocare un {@linkplain Tamagotchi}
  * 
